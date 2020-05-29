@@ -36,7 +36,6 @@ fs.readFile('./gahui_server/week2/mission/password.txt', (err, data) => {
     origindata = data.toString('utf-8');
     console.log(origindata);
 
-    //이게 최선인가...분명 아닐텐데...
     const salt = crypto.randomBytes(32).toString('hex');
     encrypt(salt, origindata);
 });
