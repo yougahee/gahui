@@ -10,7 +10,6 @@ const user = {
         const query = `INSERT INTO ${table}(${fields}) VALUES(${questions})`;
         try{
             const result = await pool.queryParamArr(query, values);
-            //result.insertId에서 insertId는 뭐를 의미하는 아이지?
             const insertId = result.insertId;
             return insertId;
         } catch (err) {

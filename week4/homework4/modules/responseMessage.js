@@ -20,11 +20,21 @@ module.exports = {
     // 프로필 조회
     READ_PROFILE_SUCCESS: "프로필 조회 성공",
 
+    
     //게시물
     POST_GET_ALL_SUCCESS: "게시물 조회 성공",
     POST_NO_ID : "해당 게시물은 없습니다.",
     POST_GET_ID_SUCCESS : "게시글 고유 id 조회 성공",
     PUT_POST_SUCCESS : "게시글 수정 성공",
-    DELETE_POST_SUCCESS : "게시글 삭제 성공"
+    DELETE_POST_SUCCESS : "게시글 삭제 성공",
 
+
+    // 인증
+    EMPTY_TOKEN: '토큰 값이 없습니다.',
+    EXPIRED_TOKEN: '토큰 값이 만료되었습니다.',
+    INVALID_TOKEN: '유효하지 않은 토큰값입니다.',
+    AUTH_SUCCESS: '인증에 성공했습니다.',  
+    ISSUE_SUCCESS: '새로운 토큰이 생성되었습니다.',
+
+    DB_ERROR: 'DB 오류'
 };
