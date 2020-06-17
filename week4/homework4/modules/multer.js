@@ -1,19 +1,19 @@
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const aws = require('aws-sdk');
-aws.config.loadFromPath(__dirname + '/../config/s3.json');
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const aws = require("aws-sdk");
+aws.config.loadFromPath(__dirname + "/../config/s3.json");
 
 const s3 = new aws.S3();
 const upload = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket : 'sopt26-seminar',
-        acl: 'public-read',
-        key: function(req, file, cb) {
-            //이름 설정
-            cb(null, Date.now() + '.' + file.originalname.split('.').pop());
-        }
-    })
+  storage: multerS3({
+    s3: s3,
+    bucket: "sopt26-seminar",
+    acl: "public-read",
+    key: function (req, file, cb) {
+      //이름 설정
+      cb(null, Date.now() + "." + file.originalname.split(".").pop());
+    },
+  }),
 });
 
 module.exports = upload;

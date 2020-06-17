@@ -1,46 +1,45 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const util = require('../modules/utils');
-const CODE = require('../modules/statusCode');
-const MSG = require('../modules/responseMessage');
-const jwt = require('../modules/jwt');
-const TOKEN_EXPIRED = -3
-const TOKEN_INVALID = -2
+const util = require("../modules/utils");
+const CODE = require("../modules/statusCode");
+const MSG = require("../modules/responseMessage");
+const jwt = require("../modules/jwt");
+const TOKEN_EXPIRED = -3;
+const TOKEN_INVALID = -2;
 
-router.get('/auth', async (req, res, next) => {
-    console.log('hi~!!');
-    next();
+router.get("/auth", async (req, res, next) => {
+  console.log("hi~!!");
+  next();
 });
 
-router.get('/auth/:authid', async (req, res) => {
-    console.log('hi~');
+router.get("/auth/:authid", async (req, res) => {
+  console.log("hi~");
 });
 
-router.get('/local', async (req, res) => {
-    var token = req.headers.token;
-        if (!token) {
-            return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
-        }
-        const user = await jwt.verify(token);
+router.get("/local", async (req, res) => {
+  var token = req.headers.token;
+  if (!token) {
+    return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
+  }
+  const user = await jwt.verify(token);
 
-        console.log(user.idx);
+  console.log(user.idx);
 
-        if (user === TOKEN_EXPIRED) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
-        }
+  if (user === TOKEN_EXPIRED) {
+    return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
+  }
 
-        if (user === TOKEN_INVALID) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
-        }
+  if (user === TOKEN_INVALID) {
+    return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+  }
 
-        //umm,,, It is right?
-        if (user.idx == undefined) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
-        }
+  //umm,,, It is right?
+  if (user.idx == undefined) {
+    return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+  }
 
-        return res.json(util.success(CODE.OK, MSG.AUTH_SUCCESS));
+  return res.json(util.success(CODE.OK, MSG.AUTH_SUCCESS));
 });
 
 module.exports = router;
-
