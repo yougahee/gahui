@@ -4,6 +4,9 @@ const statuscode = require('../modules/statusCode');
 const resMessage = require('../modules/responseMessage');
 const crypto = require('crypto');
 const jwt = require('../modules/jwt');
+const { STATUS_CODES } = require('http');
+const { kMaxLength } = require('buffer');
+const { use } = require('../routes/users');
 
 const encrypt = async(salt, password) => {
     return (await crypto.pbkdf2Sync(password, salt, 1, 32, 'sha512')).toString('hex');
@@ -45,10 +48,6 @@ const user = {
     signin: async(req, res) => {
         const {id, password} = req.body;
 
-        console.log("DD");
-      
-        //비동기... 이 코드를 여기에 적어두고 만약에, 뒤에 있는 User.signin이 먼저 실행되면 오류가 날 것 같다..
-         //존재하는 회원인지
         const loginName = await User.checkUser(id);
         if(!loginName) {
           res.status(statuscode.BAD_REQUEST).send(Util.fail(statuscode.BAD_REQUEST, resMessage.NO_USER));
@@ -57,11 +56,12 @@ const user = {
       
         const result = await User.signin(id);
         const DBsalt = result[0].salt;
+        console.log(result[0].id);
         const DBhashedpw = result[0].password;
         
         const hashedpw = await encrypt(DBsalt, password);
       
-        const token = await jwt.sign(result[0]);
+        const {token, _} = await jwt.sign(result[0]);
       
         console.log("hashedpw   " +hashedpw);
         console.log("token", token);
@@ -80,18 +80,15 @@ const user = {
         }
       
         res.status(statuscode.OK).send(Util.success(statuscode.OK, resMessage.LOGIN_SUCCESS, { accessToken : token }));
+        
       
     },
       
     profile: async(req, res) => {
 
-        var id = req.params.id;
-      
-        const idCheck = await User.checkUser(id);
-        if (!idCheck) {
-          return await res.status(statuscode.BAD_REQUEST).send(Util.fail(statuscode.BAD_REQUEST, resMessage.NO_USER));
-        }
-      
+      //여기 고쳐야함..!!!!!!
+      const id = req.param;
+
         const profile = await User.getUserById(id);
       
         const userData = {
@@ -103,6 +100,35 @@ const user = {
         res.status(statuscode.OK)
         .send(Util.success(statuscode.OK, resMessage.READ_PROFILE_SUCCESS, userData));
       
+    }, 
+
+    updateProfile: async(req, res) => {
+        //데이터 받아오기
+        const userIdx = req.decoded.idx;
+
+        //local 에 저장
+        //const profileImg = req.file.path;
+
+        //s3 에 저장
+        const profileImg = req.file.location;
+
+        //console.log(profileImg);
+       // console.log(req.file);
+      
+        //data check - undefined
+        if(profileImg === undefined || !userIdx) {
+          return res.status(statuscode.BAD_REQUEST).send(Util.fail(statuscode.BAD_REQUEST, resMessage.NULL_VALUE));
+        }
+        
+        //image type check
+        const type = req.file.mimetype.split('/')[1];
+        if(type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
+          return res.status(statuscode.BAD_REQUEST).send(Util.fail(statuscode.BAD_REQUEST, resMessage.UNSUPPORTED_TYPE));
+        }
+
+        //call model - database
+        const result = await User.updateProfile(userIdx, profileImg);
+        res.status(statuscode.OK).send(Util.success(statuscode.OK, resMessage.UPDATE_PROFILE_SUCCESS, result));
     }
     
 }

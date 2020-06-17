@@ -9,7 +9,7 @@ const TOKEN_INVALID = -2;
 module.exports = {
     sign: async (user) => {
         const payload = {
-            idx: user.userIdx,
+            idx: user.id,
             name: user.name
         };
 
@@ -25,6 +25,7 @@ module.exports = {
         let decoded;
         try {
             decoded = jwt.verify(token, secretKey);
+            console.log(decoded);
         } catch (err) {
             if (err.message === 'jwt expired') {
                 console.log('expired token');

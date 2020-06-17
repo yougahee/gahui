@@ -69,6 +69,20 @@ const user = {
             console.log('getUserById ERROR : ', err);
             throw err;
         }
+    },
+
+    //7차 세미나 --> 7차세미나 폴더에 적기~~!~!
+    updateProfile: async (userIdx, profile) => {
+        let query = `UPDATE ${table} SET image= "${profile}" WHERE id="${userIdx}"`;
+        try {
+            await pool.queryParam(query);
+            query = `SELECT id, name, email, image FROM ${table} WHERE id ="${userIdx}"`;
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('update profile ERROR : ', err);
+            throw err;
+        }
     }
 }
 

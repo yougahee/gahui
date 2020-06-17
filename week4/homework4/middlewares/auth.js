@@ -12,11 +12,14 @@ const authUtil = {
     //해독한 정보는 req.decoded에 저장하고 있으며 이후 로그인 유무는 decoded가 있는지 없는지를 통해 알 수 있음
     checkToken: async (req, res, next) => {
         var token = req.headers.jwt;
+        console.log(token);
         if (!token) {
             return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
         }
 
-        const user = jwt.verify(token);
+        const user = await jwt.verify(token);
+        //console.log(user);
+        //console.log(user.idx);
         if (user === TOKEN_EXPIRED) {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
         }
@@ -25,14 +28,14 @@ const authUtil = {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
         }
 
-        if (user.idx === undefined) {
+        if (user.name === undefined) {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
         }
 
+        console.log(user);
         req.decoded = user;
         //controller를 호출
         next();
-        
     }
 
 }
