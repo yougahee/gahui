@@ -27,10 +27,10 @@
 ### EC2 실습
 
 1. POSTMAN TEST
-![POSTMAN]()
+![POSTMAN]( https://github.com/our-sopt-server/gahui/blob/master/week7/image/L3_7thSeminar_AWS_S3_mutl.PNG )
 
 2. PM2 Log
-![EC2_Practcie]()
+![EC2_Practcie]( https://github.com/our-sopt-server/gahui/blob/master/week7/image/L3_7thSeminar_pm2.PNG)
 
 
 
