@@ -24,7 +24,7 @@ router.get('/local', async (req, res) => {
         }
         const user = await jwt.verify(token);
 
-        console.log(user);
+        console.log(user.idx);
 
         if (user === TOKEN_EXPIRED) {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
@@ -35,7 +35,7 @@ router.get('/local', async (req, res) => {
         }
 
         //umm,,, It is right?
-        if (user.name === undefined) {
+        if (user.idx == undefined) {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
         }
 
