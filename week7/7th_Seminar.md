@@ -5,6 +5,7 @@
 
 ### multer & multer-s3 실습
 
+
 1. EX1) multer
 ![multer](https://github.com/our-sopt-server/gahui/blob/master/week7/image/7%EC%B0%A8%EC%84%B8%EB%AF%B8%EB%82%98_multer%EC%8B%A4%EC%8A%B5.PNG)
 
@@ -26,14 +27,16 @@
 ### EC2 실습
 
 1. POSTMAN TEST
-![POSTMAN]()
+![POSTMAN]( https://github.com/our-sopt-server/gahui/blob/master/week7/image/L3_7thSeminar_AWS_S3_mutl.PNG )
 
 2. PM2 Log
-![EC2_Practcie]()
+![EC2_Practcie]( https://github.com/our-sopt-server/gahui/blob/master/week7/image/L3_7thSeminar_pm2.PNG)
 
 
 
- 
  
  ++ 실습코드는 week4/homework4 폴더에 update!
  [link](https://github.com/our-sopt-server/gahui/tree/master/week4/homework4)
+
+
+ 
