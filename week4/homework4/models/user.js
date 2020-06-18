@@ -1,4 +1,5 @@
 const pool = require('../modules/pool');
+//const { throw ,} = require('../config/database');
 const table = 'user';
 
 const user = {
@@ -21,6 +22,7 @@ const user = {
       throw err;
     }
   },
+  
   //아이디 중복 확인
   checkUser: async (id) => {
     const query = `SELECT * FROM ${table} WHERE id = "${id}"`;
@@ -57,7 +59,7 @@ const user = {
   },
 
   getUserById: async (id) => {
-    const query = `SELECT * FROM ${table} Where id = "${id}"`
+    const query = `SELECT * FROM ${table} WHERE useridx = "${id}"`
     try {
       const result = await pool.queryParam(query);
       return result;
@@ -71,7 +73,7 @@ const user = {
     }
   },
 
-  //7차 세미나 --> 7차세미나 폴더에 적기~~!~!
+  //7th Seminar
   updateProfile: async (userIdx, profile) => {
     let query = `UPDATE ${table} SET image= "${profile}" WHERE id="${userIdx}"`;
     try {
@@ -83,7 +85,25 @@ const user = {
       console.log('update profile ERROR : ', err);
       throw err;
     }
+  },
+
+  //7th Seminar
+  sendImages: async (id) => {
+    const query = `SELECT imageurl FROM image WHERE userid = "${id}"`;
+
+    try {
+      const result = await pool.queryParam(query);
+      return result;
+    } catch (err) {
+      if(err.errno == 1062) {
+        console.log('sendImages ERROR : ', err.errno, err.code);
+        return -1;
+      }
+      console.log('sendImages ERROR : ', err );
+      throw err;
+    }
   }
+
 }
 
 module.exports = user;
