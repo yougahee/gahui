@@ -20,6 +20,9 @@ router.post('/signin', userController.signin);
 //해당 ID profile 조회
 router.get('/profile/:id', userController.profile);
 
+//사진 여러개 받음
+router.get('/selfies/:id', AuthMiddleware.checkToken, userController.sendImages);
+
 //update profile --> request body를 imagefile로 받을 수 있도록 바꾸기.
 router.post('/profile', AuthMiddleware.checkToken, upload.single('profile'), userController.updateProfile);
 

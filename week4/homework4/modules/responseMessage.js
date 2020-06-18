@@ -34,5 +34,8 @@ module.exports = {
   UNSUPPORTED_TYPE: "지원하지 않는 확장자입니다.",
   UPDATE_PROFILE_SUCCESS: "프로필 업데이트 성공",
 
+  //이미지
+  SEND_MULTI_IMAGE_SUCCESS: "다수의 이미지 보내기 성공",
+
   DB_ERROR: "DB 오류",
 };
