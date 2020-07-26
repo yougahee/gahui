@@ -4,7 +4,7 @@
 
 * About JavaScript
 
-* What is server
+* About server
 
 ## 2nd Seminar
 
@@ -16,3 +16,36 @@
 
 
 ## 3rd Seminar
+
+* HTTP METHOD
+
+* CRUD
+
+* EC2
+
+
+## 4th Seminar
+
+* DataBase(Mysql)
+
+* RDS
+
+
+
+## 5th Seminar
+
+* JWT
+
+* MVC
+
+
+## 6th Seminar
+
+* REST API
+
+* API 문서
+
+
+## 7th Seminar
+
+* AWS S3
